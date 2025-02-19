@@ -42,4 +42,4 @@ jobs:
     - name: CodeQL 분석 수행
       uses: github/codeql-action/analyze@v2
       with:
-        category: "/security-and-quality"
+        category: "/security-and-quality" 
