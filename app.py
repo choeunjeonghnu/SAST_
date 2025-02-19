@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 # ❌ 1. 하드코딩된 비밀번호 (Hardcoded Credentials)
 DB_USER = "admin"
-DB_PASSWORD = "password123"  # 보안 위험
+DB_PASSWORD = os.getenv("DB_PASSWORD", "password123")
 
 # ❌ 2. SQL Injection 취약점
 def get_user_info(user_id):
