@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [ main ]
   schedule:
-    - cron: '0 3 * * 1'  # 매주 월요일 오전 3시에 실행
+    - cron: '0 3 * * 1'  # 매주 월요일 오전 3시 실행
 
 permissions:
   contents: read
@@ -37,9 +37,9 @@ jobs:
       uses: github/codeql-action/init@v2
       with:
         languages: python
-        queries: +security-extended  # 추가 보안 검사 쿼리 활성화
+        queries: +security-and-quality  # 보안 + 코드 품질 검사 활성화
 
     - name: CodeQL 분석 수행
       uses: github/codeql-action/analyze@v2
       with:
-        category: "/security-extended"
+        category: "/security-and-quality"
