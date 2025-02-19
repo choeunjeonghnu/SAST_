@@ -1,4 +1,4 @@
-name: "Python CodeQL Analysis"
+name: "CodeQL Analysis"
 
 on:
   push:
@@ -6,37 +6,40 @@ on:
   pull_request:
     branches: [ main ]
   schedule:
-    - cron: '0 3 * * 1'  # 매주 월요일 오전 3시 실행
+    - cron: '0 3 * * 1'  # 매주 월요일 오전 3시에 실행
 
 permissions:
   contents: read
   security-events: write
+  actions: read
+  checks: write
 
 jobs:
   analyze:
-    name: Analyze with CodeQL
+    name: CodeQL 분석 수행
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
+    - name: 리포지토리 체크아웃
       uses: actions/checkout@v3
 
-    - name: Setup Python
+    - name: Python 설정
       uses: actions/setup-python@v4
       with:
         python-version: '3.10'
 
-    - name: Install dependencies
+    - name: 종속성 설치
       run: |
         pip install --upgrade pip
         pip install -r requirements.txt
 
-    - name: Initialize CodeQL
+    - name: CodeQL 초기화
       uses: github/codeql-action/init@v2
       with:
         languages: python
+        queries: +security-extended  # 추가 보안 검사 쿼리 활성화
 
-    - name: Perform CodeQL Analysis
+    - name: CodeQL 분석 수행
       uses: github/codeql-action/analyze@v2
       with:
-        category: "/language:python"
+        category: "/security-extended"
