@@ -4,11 +4,7 @@ from flask import Flask, request, escape
 
 app = Flask(__name__)
 
-# ❌ 1. 하드코딩된 비밀번호 (Hardcoded Credentials)
-DB_USER = "admin"
-DB_PASSWORD = os.getenv("DB_PASSWORD", "password123")
-
-# ❌ 2. SQL Injection 취약점
+# ❌ 1. SQL Injection 취약점
 def get_user_info(user_id):
     conn = sqlite3.connect("users.db")
     cursor = conn.cursor()
@@ -25,13 +21,13 @@ def user():
     user_id = request.args.get("id", "1")
     return str(get_user_info(user_id))
 
-# ❌ 3. XSS (Cross-Site Scripting)
+# ❌ 2. XSS (Cross-Site Scripting)
 @app.route("/greet")
 def greet():
     name = request.args.get("name", "")
     return f"Hello {name}!"  # 입력값을 필터링 없이 출력 → XSS 위험
 
-# ❌ 4. 명령어 삽입 (Command Injection)
+# ❌ 3. 명령어 삽입 (Command Injection)
 @app.route("/run")
 def run():
     cmd = request.args.get("cmd", "ls")
