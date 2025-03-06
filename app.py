@@ -16,6 +16,11 @@ def get_user_info(user_id):
     conn.close()
     return result
 
+@app.route("/user")
+def user():
+    user_id = request.args.get("id", "1")
+    return str(get_user_info(user_id))
+
 # ❌ 2. XSS (Cross-Site Scripting)
 @app.route("/greet")
 def greet():
