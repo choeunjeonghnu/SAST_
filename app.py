@@ -5,7 +5,7 @@ from flask import Flask, request, escape
 app = Flask(__name__)
 
 # ❌ 1. SQL Injection 취약점
-def get_user_info(user_id):
+def get_user_info(user_id): 
     conn = sqlite3.connect("users.db")
     cursor = conn.cursor()
     
