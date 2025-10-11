@@ -33,12 +33,12 @@ jobs:
         pip install -r requirements.txt
 
     - name: CodeQL 초기화
-      uses: github/codeql-action/init@v2
+      uses: github/codeql-action/init@v3
       with:
         languages: python
         queries: +security-and-quality  # 보안 + 코드 품질 검사 활성화
 
     - name: CodeQL 분석 수행
-      uses: github/codeql-action/analyze@v2
+      uses: github/codeql-action/analyze@v3
       with:
         category: "/security-and-quality" 
